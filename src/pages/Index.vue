@@ -36,16 +36,16 @@ export default {
         method: "post",
         data: {
           query: `
-              query {
-          getAllTestString {
-            text
-          }
-        }
+             {
+              allTestText {
+                text
+              }
+            }
 
       `,
         },
       }).then((result) => {
-        result.data.data.getAllTestString.forEach((element) => {
+        result.data.data.allTestText.forEach((element) => {
           this.testStrings.push(element.text);
         });
       });
