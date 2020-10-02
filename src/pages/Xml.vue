@@ -12,6 +12,31 @@
 <script>
 // import AxiosClient from "../remote/AxiosClient";
 const axios = require("axios");
+import gql from "graphql-tag";
+
+const ALL_XML = gql`
+  {
+    allXML {
+      name
+      xmin
+      ymin
+      xmax
+      ymax
+    }
+  }
+`;
+
+const REAL_TIME_XML = gql`
+  subscription {
+    newXML {
+      name
+      xmin
+      ymin
+      xmax
+      ymax
+    }
+  }
+`;
 
 export default {
   name: "PageIndex",
@@ -58,34 +83,27 @@ export default {
       data: [],
     };
   },
-  methods: {
-    getString() {
-      axios({
-        url: "https://fifa-dashboard-api.herokuapp.com/graphql",
-        method: "post",
-        data: {
-          query: `
-             {
-              allXML {
-                name
-                xmin
-                ymin
-                xmax
-                ymax
-              }
-            }
-
-      `,
+  apollo: {
+    data: {
+      query: ALL_XML,
+      update(data) {
+        return data.allXML;
+      },
+      subscribeToMore: {
+        document: REAL_TIME_XML,
+        updateQuery: (previousResult, { subscriptionData }) => {
+          if (previousResult) {
+            return {
+              data: previousResult.allXML.push(subscriptionData.data.newXML),
+            };
+          }
         },
-      }).then((result) => {
-        result.data.data.allXML.forEach((element) => {
-          this.data.push(element);
-        });
-      });
+      },
     },
   },
+  methods: {},
   mounted() {
-    this.getString();
+    const this_ = this;
   },
 };
 </script>
