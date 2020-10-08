@@ -1,6 +1,6 @@
 # Fifa Dashboard App (fifa-dashboard)
 
-Dashboard to visualize player performance
+Dashboard to visualize FIFA player performance
 
 ## Install the dependencies
 ```bash

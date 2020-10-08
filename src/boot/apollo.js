@@ -4,9 +4,12 @@ import VueApollo from 'vue-apollo'
 import fetch from 'node-fetch'
 import { WebSocketLink } from 'apollo-link-ws';
 
+const local = "ws://localhost:5000/graphql"
+const online = "ws://fifa-dashboard-api.herokuapp.com/graphql"
+
 const createApolloClient = function (isServerSide) {
   const link = new WebSocketLink({
-    uri: 'ws://fifa-dashboard-api.herokuapp.com/graphql',
+    uri: online,
     options: {
       reconnect: true,
       timeout: 30000,
