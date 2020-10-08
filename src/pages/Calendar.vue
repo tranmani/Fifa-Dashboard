@@ -49,8 +49,8 @@ export default {
     dateDetail(text) {
       this.$q
         .dialog({
-          title: "Date detail",
-          message: text + ` ${this.date}`,
+          title: "Date detail" + ` ${this.date}`,
+          message: text,
         })
         .onOk(() => {
           this.date = "";
