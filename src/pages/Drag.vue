@@ -1,53 +1,70 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="row">
-      <draggable
-        v-model="rows1"
-        tag="q-card"
-        ghost-class="ghost"
-        :options="{ animation: 200 }"
-        :move="handleMove"
-        @end="handleDragEnd"
-        class="row"
+  <q-page class="flex flex-center row">
+    <div class="col-12 flex flex-center">
+      <q-btn
+        @click="draggable = !draggable"
+        class="row-2"
+        :color="draggable ? `green` : `red`"
+        >Toggle Draggable</q-btn
       >
-        <div v-for="item in rows1" :key="item.order" class="q-pa-md">
-          <div v-if="item.title == `Drag me 1`">
-            <q-card style="height: 500px; width: 400px">
-              <h3
-                style="margin: 5px; text-align: center"
-                class="list-group-item"
-              >
-                {{ item.title }}
-              </h3>
-              <highcharts ref="lineChart" :options="pieChart"
-            /></q-card>
-          </div>
+    </div>
+    <draggable
+      :list="rows1"
+      tag="h3"
+      ghost-class="ghost"
+      :options="{ animation: 500 }"
+      :move="handleMove"
+      @end="handleDragEnd"
+      class="row"
+      v-if="draggable"
+    >
+      <div v-for="item in rows1" :key="item.order" class="q-pa-md">
+        <q-card v-if="item.title == `Drag me 1`" class="drop-shadow card-big">
+          <h3 class="list-group-item">
+            {{ item.title }}
+          </h3>
+          <highcharts ref="lineChart" :options="pieChart"
+        /></q-card>
 
-          <div v-if="item.title == `Drag me 2`">
-            <q-card style="height: 500px; width: 300px">
-              <h3
-                style="margin: 5px; text-align: center"
-                class="list-group-item"
-              >
-                {{ item.title }}
-              </h3>
-              <highcharts ref="lineChart" :options="barChart"
-            /></q-card>
-          </div>
+        <q-card v-if="item.title == `Drag me 2`" class="drop-shadow card-small">
+          <h3 class="list-group-item">
+            {{ item.title }}
+          </h3>
+          <highcharts ref="lineChart" :options="barChart"
+        /></q-card>
 
-          <div v-if="item.title == `Drag me 3`">
-            <q-card style="height: 500px; width: 300px">
-              <h3
-                style="margin: 5px; text-align: center"
-                class="list-group-item"
-              >
-                {{ item.title }}
-              </h3>
-              <highcharts ref="lineChart" :options="barChart"
-            /></q-card>
-          </div>
-        </div>
-      </draggable>
+        <q-card v-if="item.title == `Drag me 3`" class="drop-shadow card-small">
+          <h3 class="list-group-item">
+            {{ item.title }}
+          </h3>
+          <highcharts ref="lineChart" :options="barChart"
+        /></q-card>
+      </div>
+    </draggable>
+
+    <div v-if="!draggable" class="row">
+      <div v-for="item in rows1" :key="item.order" class="q-pa-md">
+        <q-card v-if="item.title == `Drag me 1`" class="card-big">
+          <h3>
+            {{ item.title }}
+          </h3>
+          <highcharts ref="lineChart" :options="pieChart"
+        /></q-card>
+
+        <q-card v-if="item.title == `Drag me 2`" class="card-small">
+          <h3>
+            {{ item.title }}
+          </h3>
+          <highcharts ref="lineChart" :options="barChart"
+        /></q-card>
+
+        <q-card v-if="item.title == `Drag me 3`" class="card-small">
+          <h3>
+            {{ item.title }}
+          </h3>
+          <highcharts ref="lineChart" :options="barChart"
+        /></q-card>
+      </div>
     </div>
   </q-page>
 </template>
@@ -293,7 +310,7 @@ export default {
           title: "item 3",
         },
       ],
-      cardOrder: [],
+      draggable: false,
     };
   },
   computed: {},
@@ -310,7 +327,6 @@ export default {
       _items[this.movingIndex] = this.futureItem;
 
       this.rows1 = _items;
-      console.log(this.rows1);
     },
     handleMove(e) {
       const { index, futureIndex } = e.draggedContext;
@@ -330,8 +346,7 @@ export default {
 
 <style scoped>
 .ghost {
-  opacity: 0.5;
-  background: #c8ebfb;
+  opacity: 0.3;
 }
 .list-group {
   min-height: 20px;
@@ -341,5 +356,29 @@ export default {
 }
 .list-group-item i {
   cursor: pointer;
+}
+.drop-shadow:active {
+  box-shadow: 0 13px 25px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s ease-in-out;
+
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+.handle {
+  float: left;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.card-big {
+  height: 500px;
+  width: 400px;
+}
+.card-small {
+  height: 500px;
+  width: 300px;
+}
+h3 {
+  margin: 5px;
+  text-align: center;
 }
 </style>
