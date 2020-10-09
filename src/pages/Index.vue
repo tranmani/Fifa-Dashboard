@@ -14,8 +14,6 @@
 </template>
 
 <script>
-// import AxiosClient from "../remote/AxiosClient";
-const axios = require("axios");
 import gql from "graphql-tag";
 
 const ALL_STRINGS = gql`

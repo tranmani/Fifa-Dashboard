@@ -17,17 +17,6 @@
 </template>
 
 <script>
-const axios = require("axios");
-import gql from "graphql-tag";
-
-const ALL_STRINGS = gql`
-  {
-    allTestText {
-      text
-    }
-  }
-`;
-
 export default {
   name: "PageIndex",
   data() {
