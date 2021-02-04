@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import HighchartsVue from 'highcharts-vue'
-import routes from './routes'
+import routes from "./routes";
 
-Vue.use(VueRouter)
-Vue.use(HighchartsVue)
+Vue.use(VueRouter);
 
 /*
  * If not building with SSR mode, you can
@@ -16,7 +14,7 @@ Vue.use(HighchartsVue)
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function({ store, ssrContext }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -26,7 +24,37 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
-  })
+  });
 
-  return Router
+  Router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      // this route requires auth, check if logged in
+      // if not, redirect to login page.
+      if (!store.state.user.token) {
+        next({
+          path: "/"
+        });
+      } else {
+        if (!store.state.user.user.email) {
+          // Get user info
+          store
+            .dispatch("user/getLoggedInUserInfo", store.state.user.token)
+            .then(data => {
+              store
+                .dispatch(
+                  "community/getChannels",
+                  store.state.user.user.channels
+                )
+                .then(id => {
+                  next();
+                });
+            });
+        } else next();
+      }
+    } else {
+      next();
+    }
+  });
+
+  return Router;
 }

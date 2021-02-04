@@ -27,32 +27,37 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 ## Simple Querry
 
 ```js
-const ALL_XML = gql`
-  {
-    allXML {
-      name
-      xmin
-      ymin
-      xmax
-      ymax
+const LOGIN = gql`
+  query loginList($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      email
     }
   }
 `;
 
 data() {
   return {
-    data: [],
+    email: "",
+    password: "",
   };
 },
 
 this.$apollo
   .query({
-    query: ALL_XML,
+    query: LOGIN,
+    variables: {
+      email: this.email,
+      password: this.password,
+    },
   })
   .then((data) => {
-    data.data.allXML.forEach((element) => {
-      this.data.push(element);
-    });
+    // DO SOMETHING IF SUCCESS
+  })
+  .catch((error) => {
+    if (error) {
+      // DO SOMETHING IF HAVE ERROR
+    }
   });
 ```
 

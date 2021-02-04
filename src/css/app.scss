@@ -1,1 +1,318 @@
 // app global css in SCSS form
+
+@font-face {
+  font-family: AktivGrotesk-Bold;
+  src: url(../assets/AktivGrotesk-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: AktivGrotesk-Regular;
+  src: url(../assets/AktivGrotesk-Regular.ttf) format("truetype");
+}
+
+h1 h2 h3 h4 h5 h6 {
+  font-family: AktivGrotesk-Bold !important;
+}
+
+p {
+  font-family: AktivGrotesk-Regular !important;
+}
+
+.bg-page {
+  background-color: #f7f7f7;
+}
+
+.blur-bg {
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0.3)
+  );
+  backdrop-filter: blur(20px);
+}
+
+// Hide scrollbar, this fixed the chart animation
+::-webkit-scrollbar {
+  display: none;
+}
+
+.login-signup-btn {
+  color: #fff;
+  line-height: 1.2;
+  text-transform: uppercase;
+  width: 70%;
+  height: 50px;
+  transition: all 0.4s;
+}
+
+.form-container {
+  padding: 0 25px 40px;
+}
+
+a {
+  color: $secondary;
+  text-decoration: none;
+  background-color: transparent;
+  transition: all 0.4s;
+}
+
+a:hover {
+  color: $primary;
+}
+
+.lose-text {
+  color: $lose;
+}
+
+.win-text {
+  color: $win;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-out;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// .zoom-in-enter-active {
+//   transition: all 0.2s ease-out;
+// }
+
+// .zoom-in-enter {
+//   transform: scale(0.8);
+// }
+
+.zoom-in-enter-active {
+  animation: zoom-in 0.2s linear;
+}
+
+.zoom-in-leave-active {
+  animation: zoom-in 0.1s linear reverse;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Slide left transition
+.slide-left-enter-active,
+.slide-left-chat-setting-enter-active,
+.slide-right-back-filter-enter-active,
+.slide-right-back-dashboard-enter-active {
+  transition: all 0.2s ease-in-out;
+}
+
+.slide-left-leave-active {
+  transform: translateX(-50px);
+}
+
+.slide-left-chat-setting-enter-active {
+  animation: slide-left-chat-setting 0.2s ease-in;
+}
+
+.slide-left-chat-setting-leave-active {
+  animation: slide-left-chat-setting 0.2s ease-out reverse;
+}
+
+@keyframes slide-left-chat-setting {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 350px;
+  }
+}
+
+.slide-left-enter {
+  transform: translateX(50px);
+}
+
+// Slide right transition for Filter
+.slide-right-back-filter-leave-active {
+  transition: all 0.25s ease;
+}
+
+.slide-right-back-filter-enter,
+.slide-right-back-filter-leave-to {
+  transform: translateX(-50px);
+}
+
+// Slide right transition for Dashboard
+.slide-right-back-dashboard-enter,
+.slide-right-back-dashboard-leave-to {
+  transform: translateX(-50px);
+}
+
+// Slide right transition for Dashboard
+.slide-right-dashboard-enter-active {
+  animation: slide-right-dashboard 0.2s;
+}
+
+@keyframes slide-right-dashboard {
+  0% {
+    width: 40%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+// Slide up transition
+.slide-up-enter-active,
+.slide-down-enter-active {
+  transition: all 0.25s ease-in-out;
+}
+
+.slide-up-enter,
+.slide-up-leave-to {
+  transform: translateY(50px);
+}
+
+// Slide down transition
+.slide-down-enter,
+.slide-down-leave-to {
+  transform: translateY(-50px);
+}
+
+.filter-list-enter,
+.filter-list-leave-to {
+  opacity: 0;
+  transform: translateY(50px);
+}
+.filter-list-leave-active {
+  position: absolute;
+}
+
+.flip-list-move {
+  transition: all 2s;
+}
+
+// Go back container, button and text
+.go-back-container-sm {
+  width: 20px;
+}
+.go-back-container-md {
+  width: 30px;
+  margin-top: 16px;
+}
+.go-back-container-lg {
+  width: 35px;
+}
+.go-back-container-sm,
+.go-back-container-md,
+.go-back-container-lg {
+  overflow: hidden;
+
+  & .go-back-btn {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+
+    & .go-back-text {
+      transform: rotate(90deg);
+      white-space: nowrap;
+      font-size: 1.7em;
+      color: black;
+    }
+  }
+}
+
+.no-match-data {
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & h6 {
+    text-align: center;
+    color: $grey-7;
+    user-select: none;
+  }
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.scroll-area {
+  height: 100%;
+  width: 100%;
+}
+
+// Make dense props from q-input and q-select smaller
+.q-field--dense .q-field__control,
+.q-field--dense .q-field__marginal {
+  height: 35px;
+}
+
+.q-field--auto-height.q-field--dense .q-field__control,
+.q-field--auto-height.q-field--dense .q-field__native {
+  min-height: 35px;
+}
+
+.q-field--dense .q-field__after,
+.q-field--dense .q-field__append {
+  padding-left: 0;
+}
+
+.q-item--dense,
+.q-list--dense > .q-item {
+  padding: 2px 7px;
+}
+
+.q-field__native,
+.q-field__prefix,
+.q-field__suffix,
+.q-field__input {
+  padding: 2px 0 0 0;
+}
+
+@media only screen and (min-width: 1921px) {
+}
+@media only screen and (max-width: 1920px) {
+  .form-container {
+    padding: 0 25px 40px;
+  }
+}
+@media only screen and (max-width: 1300px) {
+  @keyframes slide-left-chat-setting {
+    0% {
+      right: 0;
+    }
+    100% {
+      right: 300px;
+    }
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .form-container {
+    padding: 0 10px 40px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .form-container {
+    padding: 0 10px 40px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .form-container {
+    padding: 0 0px 40px;
+  }
+  .q-tab-panel {
+    padding: 5px;
+  }
+}

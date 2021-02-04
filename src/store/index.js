@@ -1,10 +1,16 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-// import example from './module-example'
+import user from "./user";
+import filter from "./filter";
+import dashboard from "./dashboard";
+import community from "./community";
+import compare from "./compare";
+import setting from "./setting";
+import util from "./util";
 
-Vue.use(Vuex)
-
+Vue.use(Vuex);
+let store = null;
 /*
  * If not building with SSR mode, you can
  * directly export the Store instantiation;
@@ -14,16 +20,23 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
-export default function (/* { ssrContext } */) {
-  const Store = new Vuex.Store({
+export default function(/* { ssrContext } */) {
+  store = new Vuex.Store({
     modules: {
-      // example
+      user,
+      filter,
+      dashboard,
+      community,
+      compare,
+      setting,
+      util
     },
 
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEV
-  })
+  });
 
-  return Store
+  return store;
 }
+export { store };
