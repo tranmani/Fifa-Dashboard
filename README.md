@@ -2,7 +2,7 @@
 
 Dashboard to visualize FIFA player performance
 
-Back-end: https://github.com/tranmani/Fifa-Dashboard-API
+Back-end: https://github.com/tranmani/Fifa-Dashboard-API-public
 
 ## Install the dependencies
 ```bash
